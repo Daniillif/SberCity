@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,6 +22,9 @@ public class Main {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage() + count);
         }
+        //Collections.sort(records, new SortByName());
+        Collections.sort(records, new SortByDistrict());
+
         for (City record : records) {
             System.out.println(record.toString());
         }
@@ -52,5 +56,26 @@ public class Main {
                     ", foundation=" + foundation +
                     '}';
         }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getRegion() {
+            return region;
+        }
+
+        public String getDistrict() {
+            return district;
+        }
+
+        public Integer getPopulation() {
+            return population;
+        }
+
+        public String getFoundation() {
+            return foundation;
+        }
     }
+
 }
