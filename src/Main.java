@@ -1,9 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
@@ -22,13 +21,19 @@ public class Main {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage() + count);
         }
-        //Collections.sort(records, new SortByName());
-        Collections.sort(records, new SortByDistrict());
-
-        for (City record : records) {
-            System.out.println(record.toString());
+        Integer max = Arrays.stream(records.toArray()).map(num->(City)num).map(City::getPopulation).max(Comparator.comparingInt(x -> x)).get();
+        int countOfCity =0;
+        for (int i = 0; i < records.size(); i++) {
+            if(records.get(i).getPopulation()==max){
+                break;
+            }else
+                countOfCity++;
         }
-
+        System.out.println(countOfCity + "=" + max);
+        //Collections.sort(records, new SortByName());
+//        for (City record : records) {
+//            System.out.println(record.toString());
+//        }
     }
 
     public static class City {
@@ -69,13 +74,15 @@ public class Main {
             return district;
         }
 
-        public Integer getPopulation() {
+        public  Integer getPopulation() {
             return population;
         }
 
         public String getFoundation() {
             return foundation;
         }
+
+
     }
 
 }
