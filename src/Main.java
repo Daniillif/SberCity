@@ -26,7 +26,11 @@ public class Main {
             }else
                 countOfCity++;
         }
-        System.out.println(countOfCity + "=" + max);
+        //System.out.println(countOfCity + "=" + max);
+        Map<String,Integer> result = City.returnCountOfCitiesInRegion(records);
+        for (String s : result.keySet()) {
+            System.out.println(s + "-" + result.get(s));
+        }
         //Collections.sort(records, new SortByName());
 //        for (City record : records) {
 //            System.out.println(record.toString());
@@ -79,7 +83,15 @@ public class Main {
             return foundation;
         }
 
-
+        public static Map<String,Integer> returnCountOfCitiesInRegion(List<City> records){
+            Map<String,Integer> result = new HashMap<>();
+            for (int i = 0; i < records.size(); i++) {
+                if(result.containsKey(records.get(i).getRegion())){
+                    result.put(records.get(i).getRegion(),result.get(records.get(i).getRegion())+1);
+                }else
+                    result.put(records.get(i).getRegion(),1);
+            }return result;
+        }
     }
 
 }
